@@ -1,0 +1,57 @@
+{
+  "version": "1.0",
+  "year": 2025,
+  "sources": {
+    "netflix": {
+      "meta": {
+        "name": "Netflix",
+        "theme": {
+          "primaryColor": "#E50914"
+        }
+      },
+      "metrics": {
+        "total_watch_time": {
+          "type": "duration",
+          "value": 18342,
+          "unit": "minutes"
+        },
+        "most_watched_title_time": {
+          "type": "duration",
+          "value": 607,
+          "unit": "minutes"
+        },
+        "most_watched_title": {
+          "type": "string",
+          "value": "Breaking Bad"
+        }
+      },
+      "stories": {
+        "time_spent_watching_story": {
+          "id": "time_spent_watching_story",
+          "type": "HERO_STAT",
+          "title": "Total watch time",
+          "data": {
+            "refs": {
+              "amount": "total_watch_time"
+            }
+          }
+        },
+        "most_watched_title_story": {
+          "id": "most_watched_title_story",
+          "type": "TOP_ITEM",
+          "title": "You spent most of your time watching",
+          "data": {
+            "refs": {
+              "item": "most_watched_title",
+              "amount": "most_watched_title_time"
+            }
+          }
+        }
+      }
+    }
+  },
+  "timeline": [
+    "netflix.time_spent_watching_story",
+    "netflix.most_watched_title_story"
+  ]
+}
