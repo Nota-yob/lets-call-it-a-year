@@ -23,6 +23,41 @@
         "most_watched_title": {
           "type": "string",
           "value": "Breaking Bad"
+        },
+        "total_titles_watched": {
+          "type": "number",
+          "value": 47,
+          "unit": "films and series"
+        },
+        "category_drama": {
+          "type": "duration",
+          "value": 4320,
+          "unit": "minutes",
+          "label": "Drama"
+        },
+        "category_comedy": {
+          "type": "duration",
+          "value": 2880,
+          "unit": "minutes",
+          "label": "Comedy"
+        },
+        "category_thriller": {
+          "type": "duration",
+          "value": 2160,
+          "unit": "minutes",
+          "label": "Thriller"
+        },
+        "category_documentary": {
+          "type": "duration",
+          "value": 1440,
+          "unit": "minutes",
+          "label": "Documentary"
+        },
+        "category_action": {
+          "type": "duration",
+          "value": 1080,
+          "unit": "minutes",
+          "label": "Action"
         }
       },
       "stories": {
@@ -46,12 +81,40 @@
               "amount": "most_watched_title_time"
             }
           }
+        },
+        "total_titles_watched_story": {
+          "id": "total_titles_watched_story",
+          "type": "HERO_STAT",
+          "title": "This year you watched",
+          "data": {
+            "refs": {
+              "amount": "total_titles_watched"
+            }
+          }
+        },
+        "top_categories_story": {
+          "id": "top_categories_story",
+          "type": "TOP_N_ITEMS",
+          "title": "Your top 5 categories",
+          "data": {
+            "refs": {
+              "items": [
+                "category_drama",
+                "category_comedy",
+                "category_thriller",
+                "category_documentary",
+                "category_action"
+              ]
+            }
+          }
         }
       }
     }
   },
   "timeline": [
     "netflix.time_spent_watching_story",
-    "netflix.most_watched_title_story"
+    "netflix.most_watched_title_story",
+    "netflix.total_titles_watched_story",
+    "netflix.top_categories_story"
   ]
 }
