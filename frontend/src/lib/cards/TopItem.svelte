@@ -11,13 +11,16 @@
             {story.source.theme.emoji}
         </div>
         {/if}
+
         <div  class="text-2xl mb-6">
             {story.source.name}
         </div>
 
+        {#if story.title.before}
         <h1 class="text-3xl md:text-4xl font-semibold opacity-80">
-            {story.title}
+            {story.title.before}
         </h1>
+        {/if}
 
         <div class="mt-6 text-7xl md:text-9xl font-extrabold tracking-tight"
             style="color: {story.source.theme?.primaryColor ?? 'white'}">
@@ -30,17 +33,27 @@
         </div>
         <div class="mt-6 text-4xl md:text-6xl font-extrabold tracking-tight"
             style="color: {story.source.theme?.primaryColor ?? 'white'}">
+
             {#if story.data.amount.type == "duration"}
             <span class="text-3xl md:text-4xl font-medium opacity-70 ml-2">
                 for
             </span>
             {/if}
+
             {story.data.amount.value}
+
             {#if story.data.amount.unit}
             <span class="text-3xl md:text-4xl font-medium opacity-70 ml-2">
                 {story.data.amount.unit}
             </span>
             {/if}
+            
         </div>
+
+        {#if story.title.after}
+        <h1 class="text-3xl md:text-4xl font-semibold opacity-80">
+            {story.title.after}
+        </h1>
+        {/if}
     </div>
 </div>

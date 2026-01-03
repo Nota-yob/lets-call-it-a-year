@@ -32,9 +32,11 @@
                 {story.source.name}
             </div>
 
+            {#if story.title.before}
             <h1 class="text-3xl md:text-4xl font-semibold opacity-80">
-                {story.title}
+                {story.title.before}
             </h1>
+            {/if}
 
             <div class="mt-6 text-7xl md:text-9xl font-extrabold tracking-tight"
                 style="color: {story.source.theme?.primaryColor ?? 'white'}">
@@ -45,6 +47,12 @@
                 </span>
                 {/if}
             </div>
+
+            {#if story.title.after}
+            <h1 class="text-3xl md:text-4xl font-semibold opacity-80">
+                {story.title.after}
+            </h1>
+            {/if}
         </div>
     </div>
 </div>
