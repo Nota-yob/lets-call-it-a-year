@@ -1,16 +1,27 @@
 <script lang="ts">
-    import { tweened } from 'svelte/motion';
+    import { Tween } from 'svelte/motion';
     import { cubicOut } from 'svelte/easing';
     import { fade, fly } from 'svelte/transition';
 
-    export let story;
+    const { story } = $props();
 
-    const animatedValue = tweened(0, {
+    const tween = new Tween(0, {
         duration: 1200,
         easing: cubicOut
     });
 
-    $: animatedValue.set(story.data.amount.value);
+    let animatedValue = $state(0);
+
+    // react to story changes
+    $effect(() => {
+        tween.set(story.data.amount.value);
+    });
+
+    // react to tween animation frames
+    $effect(() => {
+        animatedValue = tween.current;
+    });
+
 </script>
 
 <div in:fade={{ duration: 400 }} class="h-screen w-screen bg-black text-white flex items-center justify-center">
@@ -26,7 +37,7 @@
 
         <div class="mt-6 text-7xl md:text-9xl font-extrabold tracking-tight"
             style="color: {story.source.theme?.primaryColor ?? 'white'}">
-            {$animatedValue.toFixed(0)}
+            {animatedValue.toFixed(0)}
             {#if story.data.amount.unit}
             <span class="text-3xl md:text-4xl font-medium opacity-70 ml-2">
                 {story.data.amount.unit}
