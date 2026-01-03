@@ -1,7 +1,12 @@
 <script lang="ts">
   import { resolveStory } from './StoryResolver';
   import { StoryRenderer } from './StoryRenderer';
+  import { onMount } from 'svelte';
+  let slideshow : HTMLButtonElement;
 
+  onMount(() => {
+    slideshow.focus()
+  })
   export let doc: any;
 
   let index = 0;
@@ -20,9 +25,9 @@
   }
 </script>
 
-<div
+<button
   class="h-screen w-screen overflow-hidden"
-  tabindex="0"
+  bind:this={slideshow}
   on:keydown={(e) => {
     if (e.key === 'ArrowRight') next();
     if (e.key === 'ArrowLeft') prev();
@@ -36,4 +41,4 @@
       />
     {/key}
   {/if}
-</div>
+</button>
