@@ -21,10 +21,7 @@ function resolveRefs(obj: any, metrics: any): any {
         return resolved;
     } else if (typeof obj === "string") {
         const metric = metrics[obj];
-        if (!metric) {
-            console.warn("Missing metric %s", metric);
-            return {};
-        }
+        if (!metric) throw new Error(`Missing metric: ${obj}`);
         return metric;
     } else {
         return {};
