@@ -10,42 +10,22 @@ export interface ResolvedStory {
     data: any;
 }
 
-
-function resolveRefs(refs: Record<string, string | string[]>, metrics: any) {
-    const resolved: Record<string, any> = {};
-
-    for (const key in refs) {
-        const metricRef = refs[key];
-
-        if (Array.isArray(metricRef)) {
-            // Multi-item case: array of metric IDs
-            resolved[key] = metricRef
-                .map(id => {
-                    const metric = metrics[id];
-                    if (!metric) throw new Error(`Missing metric: ${id}`);
-                    return {
-                        label: metric.label,
-                        value: metric.value,
-                        unit: metric.unit,
-                        type: metric.type
-                    };
-                });
-        } else {
-            // Single-item case
-            const metric = metrics[metricRef];
-            if (!metric) {
-                throw new Error(`Missing metric: ${metricRef}`);
-            }
-            resolved[key] = {
-                label: metric.label,
-                value: metric.value,
-                unit: metric.unit,
-                type: metric.type
-            };
+function resolveRefs(obj: any, metrics: any): any {
+    if (Array.isArray(obj)) {
+        return obj.map((sub: any) => resolveRefs(sub, metrics));
+    } else if (obj && typeof obj === "object") {
+        var resolved: Record<string, any> = {};
+        for (var key in obj) {
+            resolved[key] = resolveRefs(obj[key], metrics);
         }
+        return resolved;
+    } else if (typeof obj === "string") {
+        const metric = metrics[obj];
+        if (!metric) throw new Error(`Missing metric: ${obj}`);
+        return metric;
+    } else {
+        return {};
     }
-
-    return resolved;
 }
 
 export function resolveStory(ref: string, doc: any): ResolvedStory {
