@@ -11,14 +11,14 @@ export interface ResolvedStory {
 }
 
 function resolveRefs(obj: any, metrics: any): any {
-    if (obj && typeof obj === "object") {
+    if (Array.isArray(obj)) {
+        return obj.map((sub: any) => resolveRefs(sub, metrics));
+    } else if (obj && typeof obj === "object") {
         var resolved: Record<string, any> = {};
         for (var key in obj) {
             resolved[key] = resolveRefs(obj[key], metrics);
         }
         return resolved;
-    } else if (Array.isArray(obj)) {
-        return obj.map((sub: any) => resolveRefs(sub, metrics))
     } else if (typeof obj === "string") {
         const metric = metrics[obj];
         if (!metric) {
